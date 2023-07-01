@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { AiOutlineHome, AiOutlineSearch } from 'react-icons/ai';
-import { BsCameraVideo } from 'react-icons/bs';
-import { FaUsers } from 'react-icons/fa';
-import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import Calls from '../../pages/calls';
+import { AiOutlineHome, AiOutlineSearch } from 'react-icons/ai';
+import { FaUsers } from 'react-icons/fa';
+import { BsCameraVideo } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+
+import type { MenuProps } from 'antd';
+
+import Calls from '~/pages/calls';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
+interface ILayoutProps {
+  children: any;
+}
 
 function getItem(
   label: React.ReactNode,
@@ -25,13 +31,25 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('Home', '/home', <AiOutlineHome />),
-  getItem('Calls', '/calls', <BsCameraVideo />),
+  getItem(
+    'Home',
+    '/home',
+    <Link to="/">
+      <AiOutlineHome />
+    </Link>
+  ),
+  getItem(
+    'Calls',
+    '/calls',
+    <Link to="/calls">
+      <BsCameraVideo />
+    </Link>
+  ),
   getItem('Search', '/search', <AiOutlineSearch />),
   getItem('Connections', '/connections', <FaUsers />),
 ];
 
-const AppLayout: React.FC = () => {
+const AppLayout: React.FC<ILayoutProps> = ({ children }) => {
   return (
     <Layout style={{ minHeight: '100vh', minWidth: '100vw' }}>
       <Sider collapsible collapsed={true} theme="light">
@@ -44,9 +62,7 @@ const AppLayout: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Content>
-          <Calls />
-        </Content>
+        <Content>{children}</Content>
       </Layout>
     </Layout>
   );

@@ -3,13 +3,14 @@ import './App.css';
 
 import AppLayout from './components/layout';
 import { Button } from 'antd';
+import Calls from './pages/calls';
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <AppLayout></AppLayout>
+      <Calls />
     </>
   );
 }
